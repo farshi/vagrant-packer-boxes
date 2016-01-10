@@ -2,6 +2,9 @@
 
 Create Ubuntu and Debian server boxes for [Vagrant](https://docs.vagrantup.com/v2/why-vagrant/index.html) by [Packer](https://packer.io/intro)
 
+This branch is for local builds. If you want to build the base box at [Atlas](https://atlas.hashicorp.com/), then switch to the `atlas` branch here.
+
+
 ## Prerequisites
 
 Install Vagrant, Packer and [VirtualBox](https://www.virtualbox.org).
@@ -15,20 +18,20 @@ Install Vagrant, Packer and [VirtualBox](https://www.virtualbox.org).
 
 ## Set environmental variables
 
-- cache directory
+- cache directory: place for all the ISO files downloaded during the build process
 
     export PACKER_CACHE_DIR="~/Vagrant/PackerBoxes/vagrant-packer-boxes/cache"
 
 
-## Buils the base box locally
+## Build the base box locally
 
     packer build debian-8.2.json
 
 The first build will run longer than usually, since the ISO files will be first downloaded. Follow download process by watching the cache directory.
 
-The base box will be at '''~/Vagrant/PackerBoxes/vagrant-packer-boxes/builds/virtualbox'''. This is a tar file, you can untar it if interested.
+The base box will be at `~/Vagrant/PackerBoxes/vagrant-packer-boxes/builds/virtualbox`. This is a tar file, you can untar it if interested.
 
-## Use base box
+## Use base box with Vagrant
 
     mkdir -p ~/Vagrant/jessie
     cd ~/Vagrant/jessie
@@ -39,7 +42,7 @@ The base box will be at '''~/Vagrant/PackerBoxes/vagrant-packer-boxes/builds/vir
 
 ## Customize base box
 
-- Edit and update '''Vagrantfile'''
-- Edit and update '''debian-8.2.json'''
-- Edit and update install scripts at '''scripts/'''
-- Edit and update preseed config file at '''http/'''
+- Edit and update `Vagrantfile`
+- Edit and update `debian-8.2.json`
+- Edit and update install scripts at `scripts/`
+- Edit and update preseed config file at `http/`
