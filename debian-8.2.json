@@ -1,12 +1,21 @@
 {
+  "push": {
+    "name":  "{{ user `ATLAS_USERNAME` }}/{{ user `ATLAS_NAME` }}",
+    "token": "{{ user `ATLAS_TOKEN` }}",
+    "vcs": true
+  },
   "variables": {
+    "ATLAS_NAME":     "debian-8.2",
+    "ATLAS_USERNAME": "{{env `ATLAS_USERNAME`}}",
+    "ATLAS_TOKEN":    "{{env `ATLAS_TOKEN`}}",
     "ISO_URL":        "http://cdimage.debian.org/cdimage/release/8.2.0/amd64/iso-cd/debian-8.2.0-amd64-netinst.iso",
     "ISO_SUM":        "d393d17ac6b3113c81186e545c416a00f28ed6e05774284bb5e8f0df39fcbcb9",
     "SSH_WAIT":       "10000s",
     "VM_DISK_SIZE":   "5120",
     "VM_TYPE":        "Debian_64",
-    "VM_NAME":        "debian-8.2"
-
+    "VM_NAME":        "debian-8.2",
+    "VM_DESCR":       "**Debian server 8.2 (Jessie)** | Vanilla Debian server box for 64-bit PC (AMD64) computers with VirtualBox Guest Additions 5.0.10",
+    "VM_VERSION":     "0.0.4"
   },
   "provisioners": [
     {
@@ -66,8 +75,19 @@
   "post-processors": [
     [{
       "type": "vagrant",
-      "compression_level": 9,
-      "output": "builds/{{.Provider}}/{{ user `VM_NAME` }}-{{isotime \"2006-01-02\"}}.box"
+      "keep_input_artifact": false
+    },
+    {
+      "type": "atlas",
+      "only": ["virtualbox-iso"],
+      "artifact": "{{ user `ATLAS_USERNAME` }}/{{ user `ATLAS_NAME` }}",
+      "artifact_type": "vagrant.box",
+      "token": "{{ user `ATLAS_TOKEN` }}",
+      "metadata": {
+          "provider":    "virtualbox",
+          "version":     "{{ user `VM_VERSION` }}",
+          "description": "{{ user `VM_DESCR` }}"
+      }
     }]
   ]
 }
