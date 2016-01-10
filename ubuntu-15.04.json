@@ -1,0 +1,83 @@
+{
+  "variables": {
+    "ISO_URL":        "http://releases.ubuntu.com/vivid/ubuntu-15.04-server-amd64.iso",
+    "ISO_SUM":        "6501c8545374665823384bbb6235f865108f56d8a30bbf69dd18df73c14ccb84",
+    "SSH_WAIT":       "10000s",
+    "VM_DISK_SIZE":   "5120",
+    "VM_TYPE":        "Ubuntu_64",
+    "VM_NAME":        "ubuntu-15.04"
+  },
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/base.sh",
+        "scripts/virtualbox.sh",
+        "scripts/vmware.sh",
+        "scripts/vagrant.sh",
+        "scripts/dep.sh",
+        "scripts/cleanup.sh",
+        "scripts/zerodisk.sh"
+      ],
+      "override": {
+        "virtualbox-iso": {
+          "execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}'"
+        }
+      }
+    }
+  ],
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "boot_command": [
+        "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "/install/vmlinuz<wait>",
+        " auto<wait>",
+        " console-setup/ask_detect=false<wait>",
+        " console-setup/layoutcode=us<wait>",
+        " console-setup/modelcode=pc105<wait>",
+        " debconf/frontend=noninteractive<wait>",
+        " debian-installer=en_US<wait>",
+        " fb=false<wait>",
+        " initrd=/install/initrd.gz<wait>",
+        " kbd-chooser/method=us<wait>",
+        " keyboard-configuration/layout=USA<wait>",
+        " keyboard-configuration/variant=USA<wait>",
+        " locale=en_US<wait>",
+        " netcfg/get_hostname={{ .Name }} <wait>",
+        " netcfg/get_domain=vagrantup.com <wait>",
+        " grub-installer/bootdev=/dev/sda<wait>",
+        " noapic<wait>",
+        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg<wait>",
+        " -- <wait>",
+        "<enter><wait>"
+      ],
+      "headless": true,
+      "boot_wait": "10s",
+      "disk_size": "{{ user `VM_DISK_SIZE` }}",
+      "guest_os_type": "{{ user `VM_TYPE` }}",
+      "http_directory": "http",
+      "iso_checksum": "{{ user `ISO_SUM` }}",
+      "iso_checksum_type": "sha256",
+      "iso_url": "{{ user `ISO_URL` }}",
+      "output_directory": "output-{{ user `VM_NAME` }}-{{isotime \"2006-01-02\"}}",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "{{ user `SSH_WAIT` }}",
+      "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'vagrant'|sudo -S bash 'shutdown.sh'",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "virtualbox_version_file": ".vbox_version"
+    }
+  ],
+  "post-processors": [
+    [{
+      "type": "vagrant",
+      "compression_level": 9,
+      "output": "builds/{{.Provider}}/{{ user `VM_NAME` }}-{{isotime \"2006-01-02\"}}.box"
+    }]
+  ]
+}
