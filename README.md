@@ -7,7 +7,7 @@ This branch is for local builds. If you want to build the base box at [Atlas](ht
 
 ## Prerequisites
 
-Install Vagrant, Packer and [VirtualBox](https://www.virtualbox.org).
+Install Vagrant, Packer and [VirtualBox](https://www.virtualbox.org)
 
 ## Clone vagrant-packer-boxes
 
