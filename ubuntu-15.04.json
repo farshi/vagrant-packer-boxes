@@ -14,8 +14,8 @@
     "VM_DISK_SIZE":   "5120",
     "VM_TYPE":        "Ubuntu_64",
     "VM_NAME":        "ubuntu-15.04",
-    "VM_DESCR":       "**Ubuntu server 15.04 (Vivid Vervet)**  Vanilla Ubuntu server box for 64-bit PC (AMD64) computers with VirtualBox Guest Additions 5.0.10",
-    "VM_VERSION":     "0.0.4"
+    "VM_DESCR":       "**Ubuntu server 15.04 (Vivid Vervet)**  Vanilla Ubuntu server box for 64-bit PC (AMD64) computers with VirtualBox Guest Additions 5.0.12",
+    "VM_VERSION":     "{{env `ATLAS_VERSION`}}"
   },
   "provisioners": [
     {
