@@ -1,4 +1,5 @@
 #!/bin/bash
+# cleanup.sh
 
 # Removing leftover leases and persistent rules
 echo "cleaning up dhcp leases"
@@ -11,5 +12,4 @@ mkdir /etc/udev/rules.d/70-persistent-net.rules
 rm -rf /dev/.udev/
 rm /lib/udev/rules.d/75-persistent-net-generator.rules
 
-echo "Adding a 2 sec delay to the interface up, to make the dhclient happy"
-echo "pre-up sleep 2" >> /etc/network/interfaces
+# https://github.com/ning/atlas/blob/master/src/main/resources/vbox/postinstall_atlas.sh

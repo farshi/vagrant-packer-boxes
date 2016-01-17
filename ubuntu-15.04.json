@@ -3,6 +3,7 @@
     "ISO_URL":        "http://releases.ubuntu.com/vivid/ubuntu-15.04-server-amd64.iso",
     "ISO_SUM":        "6501c8545374665823384bbb6235f865108f56d8a30bbf69dd18df73c14ccb84",
     "SSH_WAIT":       "10000s",
+    "VBOX_VERSION":   "5.0.12",
     "VM_DISK_SIZE":   "5120",
     "VM_TYPE":        "Ubuntu_64",
     "VM_NAME":        "ubuntu-15.04"
@@ -21,7 +22,7 @@
       ],
       "override": {
         "virtualbox-iso": {
-          "execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}'"
+          "execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}' '{{ user `VBOX_VERSION` }}' '{{ user `VM_TYPE` }}' "
         }
       }
     }

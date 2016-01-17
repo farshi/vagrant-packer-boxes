@@ -3,6 +3,7 @@
     "ISO_URL":        "http://releases.ubuntu.com/trusty/ubuntu-14.04.3-server-amd64.iso",
     "ISO_SUM":        "a3b345908a826e262f4ea1afeb357fd09ec0558cf34e6c9112cead4bb55ccdfb",
     "SSH_WAIT":       "10000s",
+    "VBOX_VERSION":   "5.0.12",
     "VM_DISK_SIZE":   "5120",
     "VM_TYPE":        "Ubuntu_64",
     "VM_NAME":        "ubuntu-14.04"
@@ -21,7 +22,7 @@
       ],
       "override": {
         "virtualbox-iso": {
-          "execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}'"
+          "execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}' '{{ user `VBOX_VERSION` }}' '{{ user `VM_TYPE` }}' "
         }
       }
     }

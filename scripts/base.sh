@@ -1,13 +1,25 @@
 #!/bin/bash
+# base.sh
 
-perl -p -i -e 's#http://us.archive.ubuntu.com/ubuntu#http://mirror.rackspace.com/ubuntu#gi' /etc/apt/sources.list
+VM_TYPE=$2
+export DEBIAN_FRONTEND="noninteractive"
+
+if [[ $VM_TYPE =~ Ubuntu_64 ]]; then
+    echo "==> Update Ubunto repo"
+    sed -i 's/us.archive.ubuntu.com/mirror.rackspace.com/' /etc/apt/sources.list
+fi
+if [[ $VM_TYPE =~ Debian_64 ]]; then
+    echo "==> Update Debian repo"
+    sed -i 's/http.debian.net/mirror.rackspace.com/' /etc/apt/sources.list
+fi
 
 # Update the box
-apt-get -y update >/dev/null
-apt-get -y install facter linux-headers-$(uname -r) build-essential zlib1g-dev libssl-dev libreadline-gplv2-dev curl unzip >/dev/null
-
-# Tweak sshd to prevent DNS resolution (speed up logins)
-echo 'UseDNS no' >> /etc/ssh/sshd_config
+echo "==> Performing dist-upgrade (all packages and kernel)"
+apt-get -y update  &> /dev/null
+apt-get -y install openssh-server
+apt-get -y dist-upgrade --force-yes &> /dev/null
+reboot
+sleep 60
 
 # Remove 5s grub timeout to speed up booting
 cat <<EOF > /etc/default/grub

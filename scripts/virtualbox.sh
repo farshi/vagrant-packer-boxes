@@ -1,13 +1,20 @@
 #!/bin/bash
+# virtualbox.sh
 
-# Bail if we are not running inside VirtualBox.
-if [[ `facter virtual` != "virtualbox" ]]; then
-    exit 0
-fi
+export DEBIAN_FRONTEND="noninteractive"
 
-mkdir -p /mnt/virtualbox
-mount -o loop /home/vagrant/VBoxGuest*.iso /mnt/virtualbox
-sh /mnt/virtualbox/VBoxLinuxAdditions.run
-ln -s /opt/VBoxGuestAdditions-*/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions
-umount /mnt/virtualbox
-rm -rf /home/vagrant/VBoxGuest*.iso
+echo "==> Installing VirtualBox Guest Additions version $1"
+# Install dependencies
+apt-get -y install linux-headers-$(uname -r) build-essential dkms  &> /dev/null
+# apt-get -y install linux-headers-generic build-essential dkms
+
+# Install VirtualBox guest additions
+echo "==> Downloading VBoxGuestAdditions_$1.iso"
+cd /tmp
+wget http://download.virtualbox.org/virtualbox/$1/VBoxGuestAdditions_$1.iso  &> /dev/null
+
+echo "==> Run install script of VirtualBox Guest Additions"
+mount -o loop VBoxGuestAdditions_$1.iso /mnt
+sh /mnt/VBoxLinuxAdditions.run
+umount /mnt
+rm VBoxGuestAdditions_$1.iso
