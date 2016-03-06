@@ -7,9 +7,6 @@ echo "==> Installing VirtualBox Guest Additions version $1"
 # Install dependencies
 apt-get -y install linux-headers-$(uname -r) build-essential dkms  &> /dev/null
 # apt-get -y install linux-headers-generic build-essential dkms
-
-# Install VirtualBox guest additions
-echo "==> Downloading VBoxGuestAdditions_$1.iso"
 cd /tmp
 wget http://download.virtualbox.org/virtualbox/$1/VBoxGuestAdditions_$1.iso  &> /dev/null
 
