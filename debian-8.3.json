@@ -5,7 +5,7 @@
     "vcs": true
   },
   "variables": {
-    "ATLAS_NAME":     "debian-8.3",
+    "ATLAS_NAME":     "debian8-3",
     "ATLAS_USERNAME": "{{env `ATLAS_USERNAME`}}",
     "ATLAS_TOKEN":    "{{env `ATLAS_TOKEN`}}",
     "ISO_URL":        "http://cdimage.debian.org/cdimage/release/8.3.0/amd64/iso-cd/debian-8.3.0-amd64-netinst.iso",
@@ -15,7 +15,7 @@
     "VM_DISK_SIZE":   "5120",
     "VM_TYPE":        "Debian_64",
     "VM_NAME":        "debian-8.3",
-    "VM_DESCR":       "**Debian server 8.3 (Jessie)** | Vanilla Debian server box for 64-bit PC (AMD64) computers with VirtualBox Guest Additions 5.0.14",
+    "VM_DESCR":       "**Debian server 8.3 (Jessie)** | Vanilla Debian server box for 64-bit PC (AMD64) computers with VirtualBox Guest Additions",
     "VM_VERSION":     "{{env `ATLAS_VERSION`}}"
   },
   "provisioners": [
@@ -75,8 +75,19 @@
   "post-processors": [
     [{
       "type": "vagrant",
-      "compression_level": 9,
-      "output": "builds/{{.Provider}}/{{ user `VM_NAME` }}-{{isotime \"2006-01-02\"}}.box"
+      "keep_input_artifact": false
+    },
+    {
+      "type": "atlas",
+      "only": ["virtualbox-iso"],
+      "artifact": "{{ user `ATLAS_USERNAME` }}/{{ user `ATLAS_NAME` }}",
+      "artifact_type": "vagrant.box",
+      "token": "{{ user `ATLAS_TOKEN` }}",
+      "metadata": {
+          "provider":    "virtualbox",
+          "version":     "{{ user `VM_VERSION` }}",
+          "description": "{{ user `VM_DESCR` }}"
+      }
     }]
   ]
 }
