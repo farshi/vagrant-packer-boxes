@@ -1,22 +1,13 @@
 {
-  "push": {
-    "name":  "{{ user `ATLAS_USERNAME` }}/{{ user `ATLAS_NAME` }}",
-    "token": "{{ user `ATLAS_TOKEN` }}",
-    "vcs": true
-  },
   "variables": {
-    "ATLAS_NAME":     "debian-8.3",
-    "ATLAS_USERNAME": "{{env `ATLAS_USERNAME`}}",
-    "ATLAS_TOKEN":    "{{env `ATLAS_TOKEN`}}",
     "ISO_URL":        "http://cdimage.debian.org/cdimage/release/8.3.0/amd64/iso-cd/debian-8.3.0-amd64-netinst.iso",
     "ISO_SUM":        "dd25bcdde3c6ea5703cc0f313cde621b13d42ff7d252e2538a11663c93bf8654",
     "SSH_WAIT":       "10000s",
     "VBOX_VERSION":   "5.0.14",
     "VM_DISK_SIZE":   "5120",
     "VM_TYPE":        "Debian_64",
-    "VM_NAME":        "debian-8.3",
-    "VM_DESCR":       "**Debian server 8.3 (Jessie)** | Vanilla Debian server box for 64-bit PC (AMD64) computers with VirtualBox Guest Additions 5.0.14",
-    "VM_VERSION":     "{{env `ATLAS_VERSION`}}"
+    "VM_NAME":        "debian-8.3"
+
   },
   "provisioners": [
     {
