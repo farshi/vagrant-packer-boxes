@@ -16,7 +16,4 @@ fi
 # Update the box
 echo "==> Performing dist-upgrade (all packages and kernel)"
 apt-get -y update  &> /dev/null
-# apt-get -y dist-upgrade --force-yes &> /dev/null
-apt-get -y dist-upgrade --force-yes
-reboot
-sleep 60
+apt-get -y dist-upgrade --force-yes &> /dev/null
