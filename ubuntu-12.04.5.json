@@ -11,6 +11,7 @@
     "ISO_URL":        "http://releases.ubuntu.com/precise/ubuntu-12.04.5-server-amd64.iso",
     "ISO_SUM":        "af224223de99e2a730b67d7785b657f549be0d63221188e105445f75fb8305c9",
     "SSH_WAIT":       "10000s",
+    "VBOX_VERSION":   "5.0.12",
     "VM_DISK_SIZE":   "5120",
     "VM_TYPE":        "Ubuntu_64",
     "VM_NAME":        "ubuntu-12.04",
@@ -23,7 +24,6 @@
       "scripts": [
         "scripts/base.sh",
         "scripts/virtualbox.sh",
-        "scripts/vmware.sh",
         "scripts/vagrant.sh",
         "scripts/dep.sh",
         "scripts/cleanup.sh",
@@ -31,7 +31,7 @@
       ],
       "override": {
         "virtualbox-iso": {
-          "execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}'"
+          "execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}' '{{ user `VBOX_VERSION` }}' '{{ user `VM_TYPE` }}' "
         }
       }
     }

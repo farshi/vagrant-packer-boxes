@@ -11,6 +11,7 @@
     "ISO_URL":        "http://releases.ubuntu.com/wily/ubuntu-15.10-server-amd64.iso",
     "ISO_SUM":        "86aa35a986eba6e5ad30e3d486d57efe6803ae7ea4859b0216953e9e62871131",
     "SSH_WAIT":       "10000s",
+    "VBOX_VERSION":   "5.0.12",
     "VM_DISK_SIZE":   "5120",
     "VM_TYPE":        "Ubuntu_64",
     "VM_NAME":        "ubuntu-15.10",
@@ -23,7 +24,6 @@
       "scripts": [
         "scripts/base.sh",
         "scripts/virtualbox.sh",
-        "scripts/vmware.sh",
         "scripts/vagrant.sh",
         "scripts/dep.sh",
         "scripts/cleanup.sh",
@@ -31,7 +31,7 @@
       ],
       "override": {
         "virtualbox-iso": {
-          "execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}'"
+          "execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}' '{{ user `VBOX_VERSION` }}' '{{ user `VM_TYPE` }}' "
         }
       }
     }
