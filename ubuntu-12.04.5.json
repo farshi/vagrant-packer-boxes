@@ -3,7 +3,7 @@
     "ISO_URL":        "http://releases.ubuntu.com/precise/ubuntu-12.04.5-server-amd64.iso",
     "ISO_SUM":        "af224223de99e2a730b67d7785b657f549be0d63221188e105445f75fb8305c9",
     "SSH_WAIT":       "10000s",
-    "VBOX_VERSION":   "5.0.12",
+    "VBOX_VERSION":   "5.0.14",
     "VM_DISK_SIZE":   "5120",
     "VM_TYPE":        "Ubuntu_64",
     "VM_NAME":        "ubuntu-12.04"
@@ -31,12 +31,13 @@
       "type": "virtualbox-iso",
       "boot_command": [
         "<esc><esc><enter><wait>",
-        "/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
-        "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
-        "hostname={{ .Name }} ",
-        "fb=false debconf/frontend=noninteractive ",
-        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false ",
-        "initrd=/install/initrd.gz -- <enter>"
+        " /install/vmlinuz",
+        " debconf/priority=critical",
+        " locale=en_US console-setup/layoutcode=us",
+        " noapic",
+        " auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg",
+        " initrd=/install/initrd.gz",
+        " -- <enter>"
       ],
       "headless": true,
       "boot_wait": "10s",

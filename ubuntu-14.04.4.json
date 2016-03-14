@@ -1,12 +1,12 @@
 {
   "variables": {
-    "ISO_URL":        "http://releases.ubuntu.com/vivid/ubuntu-15.04-server-amd64.iso",
-    "ISO_SUM":        "6501c8545374665823384bbb6235f865108f56d8a30bbf69dd18df73c14ccb84",
+    "ISO_URL":        "http://releases.ubuntu.com/trusty/ubuntu-14.04.4-server-amd64.iso",
+    "ISO_SUM":        "07e4bb5569814eab41fafac882ba127893e3ff0bdb7ec931c9b2d040e3e94e7a",
     "SSH_WAIT":       "10000s",
     "VBOX_VERSION":   "5.0.14",
     "VM_DISK_SIZE":   "5120",
     "VM_TYPE":        "Ubuntu_64",
-    "VM_NAME":        "ubuntu-15.04"
+    "VM_NAME":        "ubuntu-14.04"
   },
   "provisioners": [
     {
@@ -30,12 +30,7 @@
     {
       "type": "virtualbox-iso",
       "boot_command": [
-        "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-        "<bs><bs><bs><bs>",
+        "<esc><esc><enter><wait>",
         " /install/vmlinuz",
         " debconf/priority=critical",
         " locale=en_US console-setup/layoutcode=us",

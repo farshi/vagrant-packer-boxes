@@ -2,7 +2,7 @@
 # cleanup.sh
 
 # Removing DHCP, cache, ...
-echo "==> Cleaning in /var ..."
+echo "==> Cleaning up /var ..."
 # DDHCP leases
 rm /var/lib/dhcp/*
 # empty cache
@@ -15,7 +15,7 @@ mkdir /etc/udev/rules.d/70-persistent-net.rules
 rm -rf /dev/.udev/ &> /dev/null
 rm /lib/udev/rules.d/75-persistent-net-generator.rules &> /dev/null
 
-echo "==> Cleaning in /usr ..."
+echo "==> Cleaning up /usr ..."
 # Remove source files
 rm -rf /usr/src/vboxguest-* &> /dev/null
 # remove doc
@@ -26,7 +26,7 @@ echo "==> Removing bash history ..."
 unset histfile
 rm -rf /home/vagrant/.bash_history &> /dev/null
 
-echo "==> Cleaning packages ..."
+echo "==> Cleaning up packages ..."
 # packages
 apt-get autoremove &> /dev/null
 apt-get clean &> /dev/null
