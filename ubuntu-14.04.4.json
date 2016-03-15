@@ -1,22 +1,12 @@
 {
-  "push": {
-    "name":  "{{ user `ATLAS_USERNAME` }}/{{ user `ATLAS_NAME` }}",
-    "token": "{{ user `ATLAS_TOKEN` }}",
-    "vcs": true
-  },
   "variables": {
-    "ATLAS_USERNAME": "{{env `ATLAS_USERNAME`}}",
-    "ATLAS_NAME":     "ubuntu-15.04",
-    "ATLAS_TOKEN":    "{{env `ATLAS_TOKEN`}}",
-    "ISO_URL":        "http://releases.ubuntu.com/vivid/ubuntu-15.04-server-amd64.iso",
-    "ISO_SUM":        "6501c8545374665823384bbb6235f865108f56d8a30bbf69dd18df73c14ccb84",
+    "ISO_URL":        "http://releases.ubuntu.com/trusty/ubuntu-14.04.4-server-amd64.iso",
+    "ISO_SUM":        "07e4bb5569814eab41fafac882ba127893e3ff0bdb7ec931c9b2d040e3e94e7a",
     "SSH_WAIT":       "10000s",
     "VBOX_VERSION":   "5.0.14",
     "VM_DISK_SIZE":   "5120",
     "VM_TYPE":        "Ubuntu_64",
-    "VM_NAME":        "ubuntu-15.04",
-    "VM_DESCR":       "**Ubuntu server 15.04 (Vivid Vervet)**  Vanilla Ubuntu server box for 64-bit PC (AMD64) computers with VirtualBox Guest Additions 5.0.10",
-    "VM_VERSION":     "{{env `ATLAS_VERSION`}}"
+    "VM_NAME":        "ubuntu-14.04"
   },
   "provisioners": [
     {
@@ -40,12 +30,7 @@
     {
       "type": "virtualbox-iso",
       "boot_command": [
-        "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-        "<bs><bs><bs><bs>",
+        "<esc><esc><enter><wait>",
         " /install/vmlinuz",
         " debconf/priority=critical",
         " locale=en_US console-setup/layoutcode=us",
@@ -75,19 +60,8 @@
   "post-processors": [
     [{
       "type": "vagrant",
-      "keep_input_artifact": false
-    },
-    {
-      "type": "atlas",
-      "only": ["virtualbox-iso"],
-      "artifact": "{{user `ATLAS_USERNAME`}}/{{user `ATLAS_NAME`}}",
-      "artifact_type": "vagrant.box",
-      "token": "{{user `ATLAS_TOKEN`}}",
-      "metadata": {
-          "provider":    "virtualbox",
-          "version":     "{{user `VM_VERSION`}}",
-          "description": "{{user `VM_DESCR`}}"
-      }
+      "compression_level": 9,
+      "output": "builds/{{.Provider}}/{{ user `VM_NAME` }}-{{isotime \"2006-01-02\"}}.box"
     }]
   ]
 }

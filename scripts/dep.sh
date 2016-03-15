@@ -3,33 +3,31 @@
 
 echo "==> Installing packages..."
 export DEBIAN_FRONTEND="noninteractive"
-# Install packages - see preseed!!!!
-apt-get -y install curl unzip >/dev/null
 
-# You can install anything you need here.
-apt-get -y install mc sudo htop iotop pv ifstat ntp mtr screen curl nmon &> /dev/null
+# Install packages
+apt-get -y install mc sudo ntp screen curl &> /dev/null
 
+# set locales
+rm -rf /usr/lib/locale/*
 echo "==> Setting locale"
-echo "
+echo "# set locale
 en_US.UTF-8 UTF-8
 hu_HU.UTF-8 UTF-8
-" | tee /etc/locale.gen
-echo "
+" > /etc/locale.gen
+echo "# default locale
 LANG=en_US.UTF-8
-LANGUAGE="en_US:en"
-" | tee /etc/default/locale
+LANGUAGE=en_US:en
+" > /etc/default/locale
 locale-gen &> /dev/null
 
 # Tweak sshd to prevent DNS resolution (speed up logins)
+echo "==> Tweak SSH..."
 echo 'UseDNS no' >> /etc/ssh/sshd_config
 
 # Customize the message of the day
-echo 'Development Environment' > /etc/motd
+echo "==> Add welcome message..."
+echo "Welcome to a $2 base box forged by Doka via packer.io!" > /etc/motd
 
-echo "Adding a 2 sec delay to the interface up, to make the dhclient happy"
+# Adding a 2 sec delay to the interface up, to make the dhclient happy
+echo "==> Adjust network interface..."
 echo "pre-up sleep 2" >> /etc/network/interfaces
-
-
-echo "Add sudo without password"
-# in-target sed -i 's/^%sudo.*/%sudo ALL=(ALL:ALL) NOPASSWD:ALL/g' /etc/sudoers
-sed -i 's/^%sudo.*/%sudo ALL=(ALL:ALL) NOPASSWD:ALL/g' /etc/sudoers
