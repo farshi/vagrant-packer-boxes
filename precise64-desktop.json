@@ -71,8 +71,19 @@
   "post-processors": [
     [{
       "type": "vagrant",
-      "compression_level": 9,
-      "output": "builds/{{.Provider}}/{{ user `VM_NAME` }}-{{isotime \"2006-01-02\"}}.box"
+      "keep_input_artifact": false
+    },
+    {
+      "type": "atlas",
+      "only": ["virtualbox-iso"],
+      "artifact": "{{user `ATLAS_USERNAME`}}/{{user `ATLAS_NAME`}}",
+      "artifact_type": "vagrant.box",
+      "token": "{{user `ATLAS_TOKEN`}}",
+      "metadata": {
+          "provider":    "virtualbox",
+          "version":     "{{user `VM_VERSION`}}",
+          "description": "{{user `VM_DESCR`}}"
+      }
     }]
   ]
 }
