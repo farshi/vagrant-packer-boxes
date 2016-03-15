@@ -5,18 +5,18 @@
     "vcs": true
   },
   "variables": {
-    "ATLAS_NAME":     "debian8-3",
+    "ATLAS_NAME":     "{{user `VM_NAME`}}",
     "ATLAS_USERNAME": "{{env `ATLAS_USERNAME`}}",
     "ATLAS_TOKEN":    "{{env `ATLAS_TOKEN`}}",
-    "ISO_URL":        "http://cdimage.debian.org/cdimage/release/8.3.0/amd64/iso-cd/debian-8.3.0-amd64-netinst.iso",
-    "ISO_SUM":        "dd25bcdde3c6ea5703cc0f313cde621b13d42ff7d252e2538a11663c93bf8654",
+    "ISO_URL":        "http://releases.ubuntu.com/wily/ubuntu-15.10-server-amd64.iso",
+    "ISO_SUM":        "86aa35a986eba6e5ad30e3d486d57efe6803ae7ea4859b0216953e9e62871131",
     "SSH_WAIT":       "10000s",
-    "VBOX_VERSION":   "5.0.14",
+    "VBOX_VERSION":   "5.0.16",
     "VM_DISK_SIZE":   "5120",
-    "VM_TYPE":        "Debian_64",
-    "VM_NAME":        "debian-8.3",
-    "VM_DESCR":       "**Debian server 8.3 (Jessie)** | Vanilla Debian server box for 64-bit PC (AMD64) computers with VirtualBox Guest Additions",
-    "VM_VERSION":     "{{env `ATLAS_VERSION`}}"
+    "VM_TYPE":        "Ubuntu_64",
+    "VM_DESCR":       "**Ubuntu server 15.10 (Wily Werewolf)**   Vanilla Ubuntu server box for 64-bit PC (AMD64) computers with VirtualBox Guest Additions",
+    "VM_VERSION":     "{{env `ATLAS_VERSION`}}",
+    "VM_NAME":        "wily64"
   },
   "provisioners": [
     {
@@ -40,9 +40,19 @@
     {
       "type": "virtualbox-iso",
       "boot_command": [
-        "<esc> <wait>",
-        "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/jessie-preseed.cfg <wait>",
-        "<enter><wait>"
+        "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs>",
+        " /install/vmlinuz",
+        " debconf/priority=critical",
+        " locale=en_US console-setup/layoutcode=us",
+        " noapic hostname={{user `VM_NAME`}}",
+        " auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg",
+        " initrd=/install/initrd.gz",
+        " -- <enter>"
       ],
       "headless": true,
       "boot_wait": "10s",

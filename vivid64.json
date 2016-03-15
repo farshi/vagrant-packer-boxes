@@ -5,18 +5,18 @@
     "vcs": true
   },
   "variables": {
-    "ATLAS_NAME":     "ubuntu-14.04",
+    "ATLAS_NAME":     "{{user `VM_NAME`}}",
     "ATLAS_USERNAME": "{{env `ATLAS_USERNAME`}}",
     "ATLAS_TOKEN":    "{{env `ATLAS_TOKEN`}}",
-    "ISO_URL":        "http://releases.ubuntu.com/trusty/ubuntu-14.04.3-server-amd64.iso",
-    "ISO_SUM":        "a3b345908a826e262f4ea1afeb357fd09ec0558cf34e6c9112cead4bb55ccdfb",
+    "ISO_URL":        "http://releases.ubuntu.com/vivid/ubuntu-15.04-server-amd64.iso",
+    "ISO_SUM":        "6501c8545374665823384bbb6235f865108f56d8a30bbf69dd18df73c14ccb84",
     "SSH_WAIT":       "10000s",
-    "VBOX_VERSION":   "5.0.14",
+    "VBOX_VERSION":   "5.0.16",
     "VM_DISK_SIZE":   "5120",
     "VM_TYPE":        "Ubuntu_64",
-    "VM_NAME":        "ubuntu-14.04",
-    "VM_DESCR":       "**Ubuntu server 14.04.3 LTS (Trusty Tahr)** | Vanilla Ubuntu server box for 64-bit PC (AMD64) computers with VirtualBox Guest Additions 5.0.10",
-    "VM_VERSION":     "{{env `ATLAS_VERSION`}}"
+    "VM_DESCR":       "**Ubuntu server 15.04 (Vivid Vervet)**  Vanilla Ubuntu server box for 64-bit PC (AMD64) computers with VirtualBox Guest Additions",
+    "VM_VERSION":     "{{env `ATLAS_VERSION`}}",
+    "VM_NAME":        "vivid64"
   },
   "provisioners": [
     {
@@ -40,11 +40,16 @@
     {
       "type": "virtualbox-iso",
       "boot_command": [
-        "<esc><esc><enter><wait>",
+        "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs>",
         " /install/vmlinuz",
         " debconf/priority=critical",
         " locale=en_US console-setup/layoutcode=us",
-        " noapic",
+        " noapic hostname={{user `VM_NAME`}}",
         " auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg",
         " initrd=/install/initrd.gz",
         " -- <enter>"
@@ -75,13 +80,13 @@
     {
       "type": "atlas",
       "only": ["virtualbox-iso"],
-      "artifact": "{{ user `ATLAS_USERNAME` }}/{{ user `ATLAS_NAME` }}",
+      "artifact": "{{user `ATLAS_USERNAME`}}/{{user `ATLAS_NAME`}}",
       "artifact_type": "vagrant.box",
-      "token": "{{ user `ATLAS_TOKEN` }}",
+      "token": "{{user `ATLAS_TOKEN`}}",
       "metadata": {
           "provider":    "virtualbox",
-          "version":     "{{ user `VM_VERSION` }}",
-          "description": "{{ user `VM_DESCR` }}"
+          "version":     "{{user `VM_VERSION`}}",
+          "description": "{{user `VM_DESCR`}}"
       }
     }]
   ]

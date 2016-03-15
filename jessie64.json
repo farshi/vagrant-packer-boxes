@@ -5,18 +5,18 @@
     "vcs": true
   },
   "variables": {
-    "ATLAS_NAME":     "debian8-2",
+    "ATLAS_NAME":     "{{user `VM_NAME`}}",
     "ATLAS_USERNAME": "{{env `ATLAS_USERNAME`}}",
     "ATLAS_TOKEN":    "{{env `ATLAS_TOKEN`}}",
-    "ISO_URL":        "http://cdimage.debian.org/cdimage/archive/8.2.0/amd64/iso-cd/debian-8.2.0-amd64-netinst.iso",
-    "ISO_SUM":        "d393d17ac6b3113c81186e545c416a00f28ed6e05774284bb5e8f0df39fcbcb9",
+    "ISO_URL":        "http://cdimage.debian.org/cdimage/release/8.3.0/amd64/iso-cd/debian-8.3.0-amd64-netinst.iso",
+    "ISO_SUM":        "dd25bcdde3c6ea5703cc0f313cde621b13d42ff7d252e2538a11663c93bf8654",
     "SSH_WAIT":       "10000s",
-    "VBOX_VERSION":   "5.0.14",
+    "VBOX_VERSION":   "5.0.16",
     "VM_DISK_SIZE":   "5120",
     "VM_TYPE":        "Debian_64",
-    "VM_NAME":        "debian-8.2",
-    "VM_DESCR":       "**Debian server 8.2 (Jessie)** | Vanilla Debian server box for 64-bit PC (AMD64) computers with VirtualBox Guest Additions",
-    "VM_VERSION":     "{{env `ATLAS_VERSION`}}"
+    "VM_DESCR":       "**Debian server 8.3 (Jessie)** | Vanilla Debian server box for 64-bit PC (AMD64) computers with VirtualBox Guest Additions",
+    "VM_VERSION":     "{{env `ATLAS_VERSION`}}",
+    "VM_NAME":        "jessie64"
   },
   "provisioners": [
     {
@@ -42,6 +42,7 @@
       "boot_command": [
         "<esc> <wait>",
         "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/jessie-preseed.cfg <wait>",
+        "hostname={{user `VM_NAME`}} ",
         "<enter><wait>"
       ],
       "headless": true,
