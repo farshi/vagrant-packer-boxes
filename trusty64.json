@@ -1,13 +1,12 @@
 {
   "variables": {
-    "ISO_URL":        "http://cdimage.debian.org/cdimage/release/8.3.0/amd64/iso-cd/debian-8.3.0-amd64-netinst.iso",
-    "ISO_SUM":        "dd25bcdde3c6ea5703cc0f313cde621b13d42ff7d252e2538a11663c93bf8654",
+    "ISO_URL":        "http://releases.ubuntu.com/trusty/ubuntu-14.04.4-server-amd64.iso",
+    "ISO_SUM":        "07e4bb5569814eab41fafac882ba127893e3ff0bdb7ec931c9b2d040e3e94e7a",
     "SSH_WAIT":       "10000s",
-    "VBOX_VERSION":   "5.0.14",
+    "VBOX_VERSION":   "5.0.16",
     "VM_DISK_SIZE":   "5120",
-    "VM_TYPE":        "Debian_64",
-    "VM_NAME":        "debian-8.3"
-
+    "VM_TYPE":        "Ubuntu_64",
+    "VM_NAME":        "trusty64"
   },
   "provisioners": [
     {
@@ -31,9 +30,14 @@
     {
       "type": "virtualbox-iso",
       "boot_command": [
-        "<esc> <wait>",
-        "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/jessie-preseed.cfg <wait>",
-        "<enter><wait>"
+        "<esc><esc><enter><wait>",
+        " /install/vmlinuz",
+        " debconf/priority=critical",
+        " locale=en_US console-setup/layoutcode=us",
+        " noapic hostname={{user `VM_NAME`}}",
+        " auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg",
+        " initrd=/install/initrd.gz",
+        " -- <enter>"
       ],
       "headless": true,
       "boot_wait": "10s",
