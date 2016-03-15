@@ -1,11 +1,21 @@
 {
+  "push": {
+    "name":  "{{ user `ATLAS_USERNAME` }}/{{ user `ATLAS_NAME` }}",
+    "token": "{{ user `ATLAS_TOKEN` }}",
+    "vcs": true
+  },
   "variables": {
+    "ATLAS_NAME":     "{{user `VM_NAME`}}",
+    "ATLAS_USERNAME": "{{env `ATLAS_USERNAME`}}",
+    "ATLAS_TOKEN":    "{{env `ATLAS_TOKEN`}}",
     "ISO_URL":        "http://releases.ubuntu.com/trusty/ubuntu-14.04.4-server-amd64.iso",
     "ISO_SUM":        "07e4bb5569814eab41fafac882ba127893e3ff0bdb7ec931c9b2d040e3e94e7a",
     "SSH_WAIT":       "10000s",
     "VBOX_VERSION":   "5.0.16",
     "VM_DISK_SIZE":   "10240",
     "VM_TYPE":        "Ubuntu_64",
+    "VM_DESCR":       "**Ubuntu desktop 14.04.4 LTS (Trusty Tahr)**  Vanilla Ubuntu desktop box for 64-bit PC (AMD64) computers with VirtualBox Guest Additions",
+    "VM_VERSION":     "{{env `ATLAS_VERSION`}}",
     "VM_NAME":        "trusty64-desktop"
   },
   "provisioners": [
