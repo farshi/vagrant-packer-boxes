@@ -1,0 +1,68 @@
+{
+  "variables": {
+    "ISO_URL":        "http://releases.ubuntu.com/trusty/ubuntu-14.04.4-server-amd64.iso",
+    "ISO_SUM":        "07e4bb5569814eab41fafac882ba127893e3ff0bdb7ec931c9b2d040e3e94e7a",
+    "SSH_WAIT":       "10000s",
+    "VBOX_VERSION":   "5.0.16",
+    "VM_DISK_SIZE":   "10240",
+    "VM_TYPE":        "Ubuntu_64",
+    "VM_NAME":        "trusty64-desktop"
+  },
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/base.sh",
+        "scripts/virtualbox.sh",
+        "scripts/vagrant.sh",
+        "scripts/dep.sh",
+        "scripts/desktop.sh",
+        "scripts/cleanup.sh",
+        "scripts/zerodisk.sh"
+      ],
+      "override": {
+        "virtualbox-iso": {
+          "execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}' '{{ user `VBOX_VERSION` }}' '{{ user `VM_TYPE` }}' "
+        }
+      }
+    }
+  ],
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "boot_command": [
+        "<esc><esc><enter><wait>",
+        " /install/vmlinuz",
+        " debconf/priority=critical",
+        " locale=en_US console-setup/layoutcode=us",
+        " noapic hostname={{user `VM_NAME`}}",
+        " auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg",
+        " initrd=/install/initrd.gz",
+        " -- <enter>"
+      ],
+      "headless": true,
+      "boot_wait": "10s",
+      "disk_size": "{{ user `VM_DISK_SIZE` }}",
+      "guest_os_type": "{{ user `VM_TYPE` }}",
+      "http_directory": "http",
+      "iso_checksum": "{{ user `ISO_SUM` }}",
+      "iso_checksum_type": "sha256",
+      "iso_url": "{{ user `ISO_URL` }}",
+      "output_directory": "output-{{ user `VM_NAME` }}-{{isotime \"2006-01-02\"}}",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "{{ user `SSH_WAIT` }}",
+      "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'vagrant'|sudo -S bash 'shutdown.sh'",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "virtualbox_version_file": ".vbox_version"
+    }
+  ],
+  "post-processors": [
+    [{
+      "type": "vagrant",
+      "compression_level": 9,
+      "output": "builds/{{.Provider}}/{{ user `VM_NAME` }}-{{isotime \"2006-01-02\"}}.box"
+    }]
+  ]
+}
