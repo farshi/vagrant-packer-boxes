@@ -1,22 +1,20 @@
 {
   "push": {
-    "name":  "{{ user `ATLAS_USERNAME` }}/{{ user `ATLAS_NAME` }}",
+    "name":  "{{ user `ATLAS_USERNAME` }}/{{ user `VM_NAME` }}",
     "token": "{{ user `ATLAS_TOKEN` }}",
     "vcs": true
   },
   "variables": {
-    "ATLAS_NAME":     "{{user `VM_NAME`}}",
-    "ATLAS_USERNAME": "{{env `ATLAS_USERNAME`}}",
-    "ATLAS_TOKEN":    "{{env `ATLAS_TOKEN`}}",
     "ISO_URL":        "http://releases.ubuntu.com/vivid/ubuntu-15.04-server-amd64.iso",
     "ISO_SUM":        "6501c8545374665823384bbb6235f865108f56d8a30bbf69dd18df73c14ccb84",
-    "SSH_WAIT":       "10000s",
     "VBOX_VERSION":   "5.0.16",
     "VM_DISK_SIZE":   "10240",
     "VM_TYPE":        "Ubuntu_64",
+    "VM_NAME":        "vivid64-desktop",
     "VM_DESCR":       "**Ubuntu desktop 15.04 (Vivid Vervet)**  Vanilla Ubuntu desktop box for 64-bit PC (AMD64) computers with VirtualBox Guest Additions",
     "VM_VERSION":     "{{env `ATLAS_VERSION`}}",
-    "VM_NAME":        "vivid64-desktop"
+    "ATLAS_USERNAME": "doka",
+    "ATLAS_TOKEN":    "{{env `ATLAS_TOKEN`}}"
   },
   "provisioners": [
     {
@@ -67,7 +65,7 @@
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "ssh_port": 22,
-      "ssh_wait_timeout": "{{ user `SSH_WAIT` }}",
+      "ssh_wait_timeout": "10000s",
       "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'vagrant'|sudo -S bash 'shutdown.sh'",
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "virtualbox_version_file": ".vbox_version"
@@ -81,7 +79,7 @@
     {
       "type": "atlas",
       "only": ["virtualbox-iso"],
-      "artifact": "{{user `ATLAS_USERNAME`}}/{{user `ATLAS_NAME`}}",
+      "artifact": "{{user `ATLAS_USERNAME`}}/{{user `VM_NAME`}}",
       "artifact_type": "vagrant.box",
       "token": "{{user `ATLAS_TOKEN`}}",
       "metadata": {
