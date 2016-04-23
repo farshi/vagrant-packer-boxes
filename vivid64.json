@@ -7,7 +7,7 @@
   "variables": {
     "ISO_URL":        "http://releases.ubuntu.com/vivid/ubuntu-15.04-server-amd64.iso",
     "ISO_SUM":        "6501c8545374665823384bbb6235f865108f56d8a30bbf69dd18df73c14ccb84",
-    "VBOX_VERSION":   "5.0.16",
+    "VBOX_VERSION":   "5.0.18",
     "VM_DISK_SIZE":   "5120",
     "VM_TYPE":        "Ubuntu_64",
     "VM_NAME":        "vivid64",

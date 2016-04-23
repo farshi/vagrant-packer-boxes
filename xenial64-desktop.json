@@ -5,13 +5,13 @@
     "vcs": true
   },
   "variables": {
-    "ISO_URL":        "http://releases.ubuntu.com/wily/ubuntu-15.10-server-amd64.iso",
-    "ISO_SUM":        "86aa35a986eba6e5ad30e3d486d57efe6803ae7ea4859b0216953e9e62871131",
+    "ISO_URL":        "http://releases.ubuntu.com/xenial/ubuntu-16.04-server-amd64.iso",
+    "ISO_SUM":        "b8b172cbdf04f5ff8adc8c2c1b4007ccf66f00fc6a324a6da6eba67de71746f6",
     "VBOX_VERSION":   "5.0.18",
     "VM_DISK_SIZE":   "10240",
     "VM_TYPE":        "Ubuntu_64",
-    "VM_NAME":        "wily64-desktop",
-    "VM_DESCR":       "**Ubuntu desktop 15.10 (Wily Werewolf)**   Vanilla Ubuntu desktop box for 64-bit PC (AMD64) computers with VirtualBox Guest Additions",
+    "VM_NAME":        "xenial64-desktop",
+    "VM_DESCR":       "**Ubuntu desktop 16.04 LTS (Xenial Xerus)**   Vanilla Ubuntu box for 64-bit (AMD64) computers with VirtualBox Guest Additions",
     "VM_VERSION":     "{{env `ATLAS_VERSION`}}",
     "ATLAS_USERNAME": "doka",
     "ATLAS_TOKEN":    "{{env `ATLAS_TOKEN`}}"
@@ -85,11 +85,11 @@
       "only": ["virtualbox-iso"],
       "artifact": "{{user `ATLAS_USERNAME`}}/{{user `VM_NAME`}}",
       "artifact_type": "vagrant.box",
-      "token": "{{user `ATLAS_TOKEN`}}",
+      "token": "{{ user `ATLAS_TOKEN` }}",
       "metadata": {
           "provider":    "virtualbox",
-          "version":     "{{user `VM_VERSION`}}",
-          "description": "{{user `VM_DESCR`}}"
+          "version":     "{{ user `VM_VERSION` }}",
+          "description": "{{ user `VM_DESCR` }}"
       }
     }]
   ]
