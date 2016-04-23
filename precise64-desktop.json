@@ -2,7 +2,7 @@
   "variables": {
     "ISO_URL":        "http://releases.ubuntu.com/precise/ubuntu-12.04.5-server-amd64.iso",
     "ISO_SUM":        "af224223de99e2a730b67d7785b657f549be0d63221188e105445f75fb8305c9",
-    "VBOX_VERSION":   "5.0.16",
+    "VBOX_VERSION":   "5.0.18",
     "VM_DISK_SIZE":   "10240",
     "VM_TYPE":        "Ubuntu_64",
     "VM_NAME":        "precise64-desktop"
