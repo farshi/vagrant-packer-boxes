@@ -7,7 +7,7 @@
   "variables": {
     "ISO_URL":        "http://releases.ubuntu.com/wily/ubuntu-15.10-server-amd64.iso",
     "ISO_SUM":        "86aa35a986eba6e5ad30e3d486d57efe6803ae7ea4859b0216953e9e62871131",
-    "VBOX_VERSION":   "5.0.18",
+    "VBOX_VERSION":   "5.0.26",
     "VM_DISK_SIZE":   "5120",
     "VM_TYPE":        "Ubuntu_64",
     "VM_NAME":        "wily64",
