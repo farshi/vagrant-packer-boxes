@@ -1,8 +1,8 @@
 {
   "variables": {
-    "ISO_URL":        "http://cdimage.debian.org/cdimage/release/8.4.0/amd64/iso-cd/debian-8.4.0-amd64-netinst.iso",
-    "ISO_SUM":        "7a6b418e6a4ee3ca75dda04d79ed96c9e2c33bb0c703ca7e40c6374ab4590748",
-    "VBOX_VERSION":   "5.0.18",
+    "ISO_URL":        "http://cdimage.debian.org/cdimage/release/8.5.0/amd64/iso-cd/debian-8.5.0-amd64-netinst.iso",
+    "ISO_SUM":        "ad4e8c27c561ad8248d5ebc1d36eb172f884057bfeb2c22ead823f59fa8c3dff",
+    "VBOX_VERSION":   "5.0.26",
     "VM_DISK_SIZE":   "5120",
     "VM_TYPE":        "Debian_64",
     "VM_NAME":        "jessie64"
