@@ -1,7 +1,7 @@
 {
   "variables": {
-    "ISO_URL":        "http://releases.ubuntu.com/trusty/ubuntu-14.04.4-server-amd64.iso",
-    "ISO_SUM":        "07e4bb5569814eab41fafac882ba127893e3ff0bdb7ec931c9b2d040e3e94e7a",
+    "ISO_URL":        "http://releases.ubuntu.com/trusty/ubuntu-14.04.5-server-amd64.iso",
+    "ISO_SUM":        "dde07d37647a1d2d9247e33f14e91acb10445a97578384896b4e1d985f754cc1",
     "VBOX_VERSION":   "5.0.26",
     "VM_DISK_SIZE":   "5120",
     "VM_TYPE":        "Ubuntu_64",
