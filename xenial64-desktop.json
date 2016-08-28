@@ -5,7 +5,7 @@
     "vcs": true
   },
   "variables": {
-    "ISO_URL":        "http://releases.ubuntu.com/xenial/ubuntu-16.04.1-server-amd64.iso",
+    "ISO_URL":        "http://old-releases.ubuntu.com/releases/wily/ubuntu-15.10-server-amd64.iso",
     "ISO_SUM":        "29a8b9009509b39d542ecb229787cdf48f05e739a932289de9e9858d7c487c80",
     "VBOX_VERSION":   "5.0.26",
     "VM_DISK_SIZE":   "10240",
